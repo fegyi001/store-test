@@ -16,6 +16,7 @@ $my-theme: mat.define-light-theme((
 
 @include mat.core-theme($my-theme);
 @include mat.toolbar-theme($my-theme);
+@include mat.button-theme($my-theme);
 
 html, body {
   font-family: 'Roboto', sans-serif;
