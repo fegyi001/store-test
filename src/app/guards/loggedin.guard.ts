@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
 import { StoreService } from '../store/store.service';
+import { selectUser } from '../store/user/user.reducer';
 
 @Injectable({
   providedIn: 'root',
@@ -14,9 +15,8 @@ export class LoggedinGuard implements CanActivate {
   canActivate(): Observable<boolean> | Promise<boolean> | boolean {
     return this.storeService
       .getStore()
-      .select((state) => state.user)
+      .select(selectUser)
       .pipe(
-        map((userState) => userState.user),
         map((user) => user !== null),
         tap((loggedIn) => {
           if (!loggedIn) {

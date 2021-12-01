@@ -2,7 +2,7 @@ import { createReducer, createSelector, on } from '@ngrx/store';
 import { User } from 'src/app/models/user.interface';
 
 import { AppState } from '..';
-import { setUser } from './user.actions';
+import { resetUser, setUser } from './user.actions';
 
 export const userFeatureKey = 'user';
 
@@ -16,7 +16,8 @@ export const initialState: State = {
 
 export const reducer = createReducer(
   initialState,
-  on(setUser, (state, { user }) => ({ ...state, user }))
+  on(setUser, (state, { user }) => ({ ...state, user })),
+  on(resetUser, (state) => ({ ...state, user: null }))
 );
 
 export const selectUserState = (state: AppState) => state.user;
