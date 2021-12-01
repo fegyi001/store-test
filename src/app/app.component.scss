@@ -1,7 +1,12 @@
 :host{
   display: block;
+  height: calc(100% - 110px);
 
   .site-content {
+    height: 100%;
     padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }

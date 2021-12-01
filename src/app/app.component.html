@@ -1,5 +1,10 @@
 <mat-toolbar color="primary">
-  <mat-toolbar-row>Hello NgRx</mat-toolbar-row>
+  <mat-toolbar-row
+    >Hello
+    {{
+      (user$ | async) === null ? "visitor" : (user$ | async)?.email
+    }}</mat-toolbar-row
+  >
 </mat-toolbar>
 <div class="site-content">
   <router-outlet></router-outlet>
