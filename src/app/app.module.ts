@@ -1,4 +1,7 @@
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -22,6 +25,7 @@ import { StoreService } from './store/store.service';
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
+    HttpClientModule,
     StoreModule.forRoot(reducers, {
       metaReducers,
     }),
@@ -31,6 +35,8 @@ import { StoreService } from './store/store.service';
     }),
     StoreRouterConnectingModule.forRoot(),
     MatToolbarModule,
+    MatIconModule,
+    MatButtonModule,
     EffectsModule.forRoot([AppEffects]),
     StoreModule.forRoot(reducers, { metaReducers }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],

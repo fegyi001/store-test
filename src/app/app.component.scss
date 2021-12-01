@@ -1,4 +1,4 @@
-:host{
+:host {
   display: block;
   height: calc(100% - 110px);
 
@@ -8,5 +8,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+
+  .spacer {
+    flex: 1 1 auto;
   }
 }

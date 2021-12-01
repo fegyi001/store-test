@@ -1,8 +1,12 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { Joke } from 'src/app/models/joke.interface';
 import { AppState } from 'src/app/store';
-import { resetUser } from 'src/app/store/user/user.actions';
+
+import { HomeService } from './home.service';
+import { getJokes } from './store';
+import { addJoke } from './store/jokes/jokes.actions';
 
 @Component({
   selector: 'app-home',
@@ -10,10 +14,18 @@ import { resetUser } from 'src/app/store/user/user.actions';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent {
-  constructor(private store: Store<AppState>, private router: Router) {}
+  jokes$: Observable<Joke[]>;
 
-  onLogoutClick() {
-    this.store.dispatch(resetUser());
-    this.router.navigate(['/']);
+  constructor(
+    private store: Store<AppState>,
+    private homeService: HomeService
+  ) {
+    this.jokes$ = this.store.select(getJokes);
+  }
+
+  getNewJoke() {
+    this.homeService.fetchJoke$().subscribe((joke) => {
+      this.store.dispatch(addJoke(joke));
+    });
   }
 }

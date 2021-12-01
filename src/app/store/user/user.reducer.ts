@@ -4,8 +4,6 @@ import { User } from 'src/app/models/user.interface';
 import { AppState } from '..';
 import { resetUser, setUser } from './user.actions';
 
-export const userFeatureKey = 'user';
-
 export interface State {
   user: User | null;
 }
