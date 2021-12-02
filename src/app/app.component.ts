@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -6,19 +6,36 @@ import { Observable } from 'rxjs';
 import { User } from './models/user.interface';
 import { resetJokes } from './pages/home/store/jokes/jokes.actions';
 import { AppState } from './store';
-import { resetUser } from './store/user/user.actions';
+import { resetUser, setUser } from './store/user/user.actions';
 import { selectUser } from './store/user/user.reducer';
+import * as Keycloak from 'keycloak-js';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   user$: Observable<User | null>;
 
   constructor(private store: Store<AppState>, private router: Router) {
     this.user$ = this.store.select(selectUser);
+  }
+
+  ngOnInit() {
+    const keycloak = Keycloak('/assets/keycloak.json');
+    keycloak
+      .init({ onLoad: 'login-required' })
+      .then((authenticated: boolean) => {
+        if (authenticated) {
+          const user: User = {
+            email: 'test@test.com',
+            jwt: keycloak.token,
+          };
+          this.store.dispatch(setUser(user));
+          this.router.navigate(['/home']);
+        }
+      });
   }
 
   logout() {
