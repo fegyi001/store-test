@@ -28,6 +28,7 @@ export class AppComponent implements OnInit {
       .init({ onLoad: 'login-required' })
       .then((authenticated: boolean) => {
         if (authenticated) {
+          console.log(keycloak.token);
           const user: User = {
             email: 'test@test.com',
             jwt: keycloak.token,
