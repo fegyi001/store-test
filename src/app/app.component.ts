@@ -18,20 +18,21 @@ import * as Keycloak from 'keycloak-js';
 export class AppComponent implements OnInit {
   user$: Observable<User | null>;
 
+  keycloak = Keycloak('/assets/keycloak.json');
+
   constructor(private store: Store<AppState>, private router: Router) {
     this.user$ = this.store.select(selectUser);
   }
 
   ngOnInit() {
-    const keycloak = Keycloak('/assets/keycloak.json');
-    keycloak
+    this.keycloak
       .init({ onLoad: 'login-required' })
       .then((authenticated: boolean) => {
         if (authenticated) {
-          console.log(keycloak.token);
+          console.log(this.keycloak.token);
           const user: User = {
             email: 'test@test.com',
-            jwt: keycloak.token,
+            jwt: this.keycloak.token,
           };
           this.store.dispatch(setUser(user));
           this.router.navigate(['/home']);
@@ -40,8 +41,10 @@ export class AppComponent implements OnInit {
   }
 
   logout() {
-    this.store.dispatch(resetUser());
-    this.store.dispatch(resetJokes());
-    this.router.navigate(['/']);
+    this.keycloak.logout().then(() => {
+      this.store.dispatch(resetUser());
+      this.store.dispatch(resetJokes());
+      this.router.navigate(['/']);
+    });
   }
 }
