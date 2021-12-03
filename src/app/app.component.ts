@@ -28,10 +28,11 @@ export class AppComponent implements OnInit {
     this.keycloak
       .init({ onLoad: 'login-required' })
       .then((authenticated: boolean) => {
-        if (authenticated) {
+        if (authenticated && this.keycloak.token && this.keycloak.tokenParsed) {
           console.log(this.keycloak.token);
+          console.log(this.keycloak.tokenParsed);
           const user: User = {
-            email: 'test@test.com',
+            email: (this.keycloak.tokenParsed as any).email,
             jwt: this.keycloak.token,
           };
           this.store.dispatch(setUser(user));
