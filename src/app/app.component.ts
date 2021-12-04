@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { filter, Observable, Subscription } from 'rxjs';
 
 import { User } from './models/user.interface';
 import { resetJokes } from './pages/home/store/jokes/jokes.actions';
@@ -15,13 +15,18 @@ import * as Keycloak from 'keycloak-js';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
   user$: Observable<User | null>;
-
+  userAuthenticatedSub: Subscription;
   keycloak = Keycloak('/assets/keycloak.json');
 
   constructor(private store: Store<AppState>, private router: Router) {
     this.user$ = this.store.select(selectUser);
+    this.userAuthenticatedSub = this.user$
+      .pipe(filter((user) => user !== null))
+      .subscribe(() => {
+        this.router.navigate(['/home']);
+      });
   }
 
   ngOnInit() {
@@ -29,23 +34,25 @@ export class AppComponent implements OnInit {
       .init({ onLoad: 'login-required' })
       .then((authenticated: boolean) => {
         if (authenticated && this.keycloak.token && this.keycloak.tokenParsed) {
-          console.log(this.keycloak.token);
-          console.log(this.keycloak.tokenParsed);
           const user: User = {
             email: (this.keycloak.tokenParsed as any).email,
             jwt: this.keycloak.token,
           };
           this.store.dispatch(setUser(user));
-          this.router.navigate(['/home']);
         }
       });
   }
 
+  ngOnDestroy() {
+    if (this.userAuthenticatedSub) {
+      this.userAuthenticatedSub.unsubscribe();
+    }
+  }
+
   logout() {
     this.keycloak.logout().then(() => {
-      this.store.dispatch(resetUser());
-      this.store.dispatch(resetJokes());
-      this.router.navigate(['/']);
+      // Reload page to clear state
+      location.reload();
     });
   }
 }
