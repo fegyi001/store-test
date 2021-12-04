@@ -40,6 +40,9 @@ export class AppComponent implements OnInit, OnDestroy {
           };
           this.store.dispatch(setUser(user));
         }
+      })
+      .catch((error) => {
+        console.error(error);
       });
   }
 
