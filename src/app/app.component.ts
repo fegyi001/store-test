@@ -1,14 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import * as Keycloak from 'keycloak-js';
 import { filter, Observable, Subscription } from 'rxjs';
 
 import { User } from './models/user.interface';
-import { resetJokes } from './pages/home/store/jokes/jokes.actions';
 import { AppState } from './store';
-import { resetUser, setUser } from './store/user/user.actions';
+import { setUser } from './store/user/user.actions';
 import { selectUser } from './store/user/user.reducer';
-import * as Keycloak from 'keycloak-js';
 
 @Component({
   selector: 'app-root',
@@ -17,8 +16,8 @@ import * as Keycloak from 'keycloak-js';
 })
 export class AppComponent implements OnInit, OnDestroy {
   user$: Observable<User | null>;
-  userAuthenticatedSub: Subscription;
-  keycloak = Keycloak('/assets/keycloak.json');
+  userAuthenticatedSub: Subscription | null;
+  keycloak: Keycloak.KeycloakInstance;
 
   constructor(private store: Store<AppState>, private router: Router) {
     this.user$ = this.store.select(selectUser);
@@ -27,35 +26,38 @@ export class AppComponent implements OnInit, OnDestroy {
       .subscribe(() => {
         this.router.navigate(['/home']);
       });
+    this.keycloak = Keycloak('/assets/keycloak.json');
   }
 
   ngOnInit() {
+    this._login();
+  }
+
+  ngOnDestroy() {
+    this.userAuthenticatedSub?.unsubscribe();
+  }
+
+  logout() {
+    this.keycloak.logout().then(() => {
+      location.reload();
+    });
+  }
+
+  private _login(): void {
     this.keycloak
       .init({ onLoad: 'login-required' })
-      .then((authenticated: boolean) => {
-        if (authenticated && this.keycloak.token && this.keycloak.tokenParsed) {
-          const user: User = {
-            email: (this.keycloak.tokenParsed as any).email,
-            jwt: this.keycloak.token,
-          };
-          this.store.dispatch(setUser(user));
-        }
-      })
+      .then(() => this.keycloak.loadUserProfile())
+      .then((profile) => this._storeUser(profile))
       .catch((error) => {
         console.error(error);
       });
   }
 
-  ngOnDestroy() {
-    if (this.userAuthenticatedSub) {
-      this.userAuthenticatedSub.unsubscribe();
-    }
-  }
-
-  logout() {
-    this.keycloak.logout().then(() => {
-      // Reload page to clear state
-      location.reload();
-    });
+  private _storeUser(userProfile: Keycloak.KeycloakProfile): void {
+    const user: User = {
+      profile: userProfile,
+      jwt: this.keycloak.token,
+    };
+    this.store.dispatch(setUser(user));
   }
 }
