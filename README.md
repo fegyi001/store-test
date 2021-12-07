@@ -152,9 +152,9 @@ yarn.lock
 dist
 ```
 
-## VSCode settings
+## VSCode settings (pretty sure for WebStorm there are also plugins and settings just like this)
 
-### Plugins
+### plugins
 
 For VSCode, install the following plugins: 
 
