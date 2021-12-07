@@ -1,13 +1,13 @@
-import { Injectable } from '@angular/core';
-import { CanActivate, Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { Injectable } from '@angular/core'
+import { CanActivate, Router } from '@angular/router'
+import { Observable } from 'rxjs'
+import { map, tap } from 'rxjs/operators'
 
-import { StoreService } from '../store/store.service';
-import { selectUser } from '../store/user/user.reducer';
+import { StoreService } from '../store/store.service'
+import { selectUser } from '../store/user/user.reducer'
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class LoggedinGuard implements CanActivate {
   constructor(private router: Router, private storeService: StoreService) {}
@@ -20,11 +20,11 @@ export class LoggedinGuard implements CanActivate {
         map((user) => user !== null),
         tap((loggedIn) => {
           if (!loggedIn) {
-            this.router.navigate(['/']);
-            return false;
+            this.router.navigate(['/'])
+            return false
           }
-          return true;
+          return true
         })
-      );
+      )
   }
 }

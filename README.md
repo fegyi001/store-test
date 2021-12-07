@@ -241,3 +241,61 @@ You can try to auto fix what is possible to fix:
 ```bash
 yarn stylelint "**/*.scss" --fix
 ```
+
+## Add Git hooks (here: pre-commit)
+
+### Install husky
+
+```bash
+yarn add -D husky
+```
+
+### Add and run new script
+
+Add to package.json scripts:
+
+```json
+{
+  "prepare": "husky install"
+}
+```
+
+### Run the new script
+
+```bash
+yarn prepare
+# or
+npm run prepare
+```
+
+This installs Git hooks which are in the `.husky` folder
+
+### Add pre-commit hook
+
+Add a new file called `pre-commit` to the `.husky` folder with the following content:
+
+```bash
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+# Run linters (ts and scss)
+npm run ng lint --fix
+npm run stylelint --fix "**/*.scss"
+# Add to commit since files were potentially changed
+git add .
+```
+
+### Run `preinstall` again
+
+Run again the `preinstall` script since a new Git hook was added:
+
+```bash
+yarn prepare
+```
+
+### Try it out
+
+```bash
+git add .
+git commit -m "husky test"
+```

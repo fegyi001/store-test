@@ -1,15 +1,15 @@
-import { Injectable } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { Injectable } from '@angular/core'
+import { Store } from '@ngrx/store'
 
-import { AppState } from '.';
+import { AppState } from '.'
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class StoreService {
   constructor(private store: Store<AppState>) {}
 
   getStore(): Store<AppState> {
-    return this.store;
+    return this.store
   }
 }

@@ -1,6 +1,6 @@
-import * as Keycloak from 'keycloak-js';
+import * as Keycloak from 'keycloak-js'
 
 export interface User {
-  profile: Keycloak.KeycloakProfile;
-  jwt?: string;
+  profile: Keycloak.KeycloakProfile
+  jwt?: string
 }
