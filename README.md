@@ -164,7 +164,7 @@ For VSCode, install the following plugins:
 
 ### settings.json
 
-Update (or crete) the `.vscode/settings.json` file with the following content:
+Update (or create) the `.vscode/settings.json` file with the following content:
 
 ```json
 {
