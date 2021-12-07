@@ -103,8 +103,7 @@ In `angular.json` the `lint` part should look line this:
     "eslintConfig": ".eslintrc.js",
     "lintFilePatterns": [
       "src/**/*.ts",
-      "src/**/*.html",
-      "src/**/*.scss"
+      "src/**/*.html"
     ]
   }
 }
