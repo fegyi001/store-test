@@ -94,7 +94,7 @@ module.exports = {
 
 ### Update angular.json
 
-In `angular.json` the `lint` part should look line this:
+In `angular.json` the `lint` part should look like this:
 
 ```json
 "lint": {
@@ -152,7 +152,7 @@ yarn.lock
 dist
 ```
 
-## VSCode settings (pretty sure for WebStorm there are also plugins and settings just like this)
+## VSCode settings (pretty sure for WebStorm there are also plugins and settings just like here)
 
 ### plugins
 
