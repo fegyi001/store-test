@@ -12,9 +12,9 @@ import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { environment } from '../environments/environment';
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AppEffects } from './app.effects';
+import { AppRoutingModule } from './app-routing.module';
 import { LoggedinGuard } from './guards/loggedin.guard';
 import { metaReducers, reducers } from './store';
 import { StoreService } from './store/store.service';

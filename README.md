@@ -1,27 +1,243 @@
 # StoreTest
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.0.3.
+## Add and configure `eslint` & `stylelint` & `prettier`
 
-## Development server
+### Add `eslint` to Angular
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+```bash
+# See https://github.com/angular-eslint/angular-eslint
+ng add @angular-eslint/schematics
+```
 
-## Code scaffolding
+### Install npm packages for `stylelint`, `eslint`, `prettier` and some plugins
+ 
+```bash
+# I know this is a lot but it's worth it, trust me
+yarn add -D eslint-config-prettier eslint-plugin-prettier eslint-plugin-simple-import-sort eslint-plugin-unused-imports prettier prettier-eslint postcss postcss-scss stylelint stylelint-config-property-sort-order-smacss stylelint-config-recommended-scss stylelint-config-sass-guidelines stylelint-order stylelint-scss
+```
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### Rename `.eslintrc.json` to `.eslintrc.js`, and paste the following contents in it:
 
-## Build
+```js
+module.exports = {
+  root: true,
+  ignorePatterns: [
+    "projects/**/*"
+  ],
+  env: {
+    node: true,
+    es6: true
+  },
+  overrides: [
+    {
+      files: [
+        "*.ts"
+      ],
+      parserOptions: {
+        ecmaVersion: 2020,
+        project: [
+          "tsconfig.json"
+        ],
+        createDefaultProgram: true
+      },
+      plugins: [
+        "simple-import-sort",
+        "unused-imports"
+      ],
+      extends: [
+        "plugin:@angular-eslint/recommended",
+        "plugin:@angular-eslint/template/process-inline-templates",
+        "plugin:@typescript-eslint/recommended",
+        "prettier",
+        "plugin:prettier/recommended"
+      ],
+      rules: {
+        "@angular-eslint/directive-selector": [
+          "error",
+          {
+            type: "attribute",
+            prefix: "app",
+            style: "camelCase"
+          }
+        ],
+        "@angular-eslint/component-selector": [
+          "error",
+          {
+            type: "element",
+            prefix: "app",
+            style: "kebab-case"
+          }
+        ],
+        'simple-import-sort/imports': 'error',
+        'simple-import-sort/exports': 'error',
+        "no-unused-vars": "off",
+        "unused-imports/no-unused-imports": "error",
+        "unused-imports/no-unused-vars": [
+          "warn",
+          { "vars": "all", "varsIgnorePattern": "^_", "args": "after-used", "argsIgnorePattern": "^_" }
+        ]
+      }
+    },
+    {
+      files: [
+        "*.html"
+      ],
+      extends: [
+        "plugin:@angular-eslint/template/recommended"
+      ],
+      rules: {}
+    }
+  ]
+}
+```
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+### Update angular.json
 
-## Running unit tests
+In `angular.json` the `lint` part should look line this:
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+```json
+"lint": {
+  "builder": "@angular-eslint/builder:lint",
+  "options": {
+    "eslintConfig": ".eslintrc.js",
+    "lintFilePatterns": [
+      "src/**/*.ts",
+      "src/**/*.html",
+      "src/**/*.scss"
+    ]
+  }
+}
+```
 
-## Running end-to-end tests
+### Create `.stylelintrc.yml` with the following content:
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+```yml
+extends:
+    - stylelint-config-recommended-scss
+    - stylelint-config-property-sort-order-smacss
+    - stylelint-config-sass-guidelines
+plugins:
+    - stylelint-scss
+rules:
+    max-nesting-depth: null
+    selector-max-compound-selectors: null
+    selector-class-pattern: null
+    scss/dollar-variable-pattern: null
+    no-empty-source: null
+    selector-pseudo-element-no-unknown: null
+    scss/no-global-function-names: null
+    order/properties-order: null
+    function-parentheses-space-inside: null
+```
 
-## Further help
+### Create `.prettierrc.json` with the following content:
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+```json
+{
+    "bracketSpacing": true,
+    "semi": false,
+    "singleQuote": true,
+    "trailingComma": "none",
+    "endOfLine": "auto",
+    "printWidth": 80
+}
+```
+
+### Create `.prettierignore` with the following content:
+
+```bash
+package.json
+package-lock.json
+yarn.lock
+dist
+```
+
+## VSCode settings
+
+### Plugins
+
+For VSCode, install the following plugins: 
+
+- Eslint (`dbaeumer.vscode-eslint`)
+- Prettier (`esbenp.prettier-vscode`)
+- Stylelint (`stylelint.vscode-stylelint`)
+
+### settings.json
+
+Update (or crete) the `.vscode/settings.json` file with the following content:
+
+```json
+{
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "node_modules": true,
+  },
+  "editor.codeActionsOnSave": {
+    "source.fixAll": true
+  },
+  "eslint.format.enable": true,
+  "stylelint.enable": true,
+  "css.validate": false,
+  "scss.validate": false,
+  "[javascript]": {
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+  },
+  "[scss]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "stylelint.validate": ["css", "scss"]
+}
+```
+
+You may have to restart your IDE.
+
+## Run the first linting
+
+```bash
+yarn lint
+# or
+npm run lint
+```
+
+You can try to auto fix what is possible to fix:
+
+```bash
+yarn lint --fix
+```
+
+## Create script for linting styles
+
+In package.json, add the following script:
+
+```json
+{
+  "stylelint": "stylelint",
+}
+```
+
+## Run the first style linting
+
+```bash
+yarn stylelint "**/*.scss"
+# or
+npm run stylelint "**/*.scss"
+```
+
+You can try to auto fix what is possible to fix:
+
+```bash
+yarn stylelint "**/*.scss" --fix
+```

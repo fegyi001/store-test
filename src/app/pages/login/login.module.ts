@@ -6,8 +6,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 
-import { LoginRoutingModule } from './login-routing.module';
 import { LoginComponent } from './login.component';
+import { LoginRoutingModule } from './login-routing.module';
 
 @NgModule({
   declarations: [LoginComponent],
