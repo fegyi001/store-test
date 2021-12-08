@@ -2,10 +2,6 @@
 . "$(dirname "$0")/_/husky.sh"
 
 # Run linters (ts and scss)
-# npm run ng lint --fix
-# npm run stylelint --fix "**/*.scss"
 yarn lint-staged
-# Add to commit since files were potentially changed
-# git add .
 # run tests
 npm run test-headless
