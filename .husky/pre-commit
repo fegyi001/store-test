@@ -6,3 +6,5 @@ npm run ng lint --fix
 npm run stylelint --fix "**/*.scss"
 # Add to commit since files were potentially changed
 git add .
+# run tests
+npm run test-headless

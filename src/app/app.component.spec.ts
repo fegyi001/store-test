@@ -1,34 +1,29 @@
 import { TestBed } from '@angular/core/testing'
+import { MatButtonModule } from '@angular/material/button'
+import { MatIconModule } from '@angular/material/icon'
+import { MatToolbarModule } from '@angular/material/toolbar'
 import { RouterTestingModule } from '@angular/router/testing'
+import { StoreModule } from '@ngrx/store'
 
 import { AppComponent } from './app.component'
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RouterTestingModule],
+      imports: [
+        RouterTestingModule,
+        StoreModule.forRoot({}),
+        MatToolbarModule,
+        MatIconModule,
+        MatButtonModule
+      ],
       declarations: [AppComponent]
     }).compileComponents()
   })
 
-  it('should create the app', () => {
+  fit('should create the app', () => {
     const fixture = TestBed.createComponent(AppComponent)
     const app = fixture.componentInstance
     expect(app).toBeTruthy()
-  })
-
-  it(`should have as title 'store-test'`, () => {
-    const fixture = TestBed.createComponent(AppComponent)
-    const app = fixture.componentInstance
-    expect(app.title).toEqual('store-test')
-  })
-
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent)
-    fixture.detectChanges()
-    const compiled = fixture.nativeElement as HTMLElement
-    expect(compiled.querySelector('.content span')?.textContent).toContain(
-      'store-test app is running!'
-    )
   })
 })
