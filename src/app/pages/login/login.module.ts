@@ -15,9 +15,9 @@ import { LoginRoutingModule } from './login-routing.module'
     CommonModule,
     LoginRoutingModule,
     MatIconModule,
+    ReactiveFormsModule,
     MatInputModule,
     MatFormFieldModule,
-    ReactiveFormsModule,
     MatButtonModule
   ]
 })
