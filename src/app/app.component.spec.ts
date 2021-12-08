@@ -6,13 +6,14 @@ import { RouterTestingModule } from '@angular/router/testing'
 import { StoreModule } from '@ngrx/store'
 
 import { AppComponent } from './app.component'
+import { reducers } from './store'
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
-        StoreModule.forRoot({}),
+        StoreModule.forRoot(reducers),
         MatToolbarModule,
         MatIconModule,
         MatButtonModule
