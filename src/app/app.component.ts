@@ -38,9 +38,14 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   logout() {
-    this.keycloak.logout().then(() => {
-      location.reload()
-    })
+    this.keycloak
+      .logout()
+      .then(() => {
+        location.reload()
+      })
+      .catch((error) => {
+        console.error('Error logging out', error)
+      })
   }
 
   private _login(): void {
@@ -49,7 +54,7 @@ export class AppComponent implements OnInit, OnDestroy {
       .then(() => this.keycloak.loadUserProfile())
       .then((profile) => this._storeUser(profile))
       .catch((error) => {
-        console.error(error)
+        console.error('Error during login: ', error)
       })
   }
 
