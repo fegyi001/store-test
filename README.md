@@ -2,6 +2,11 @@
 
 ## Add and configure `eslint` & `stylelint` & `prettier`
 
+### Install yarn globally
+```bash
+npm install -g yarn
+```
+
 ### Add `eslint` to Angular
 
 ```bash
@@ -208,8 +213,6 @@ You may have to restart your IDE.
 
 ```bash
 yarn lint
-# or
-npm run lint
 ```
 
 You can try to auto fix what is possible to fix:
@@ -232,8 +235,6 @@ In package.json, add the following script:
 
 ```bash
 yarn stylelint "**/*.scss"
-# or
-npm run stylelint "**/*.scss"
 ```
 
 You can try to auto fix what is possible to fix:
@@ -264,8 +265,6 @@ Add to package.json scripts:
 
 ```bash
 yarn prepare
-# or
-npm run prepare
 ```
 
 This installs Git hooks which are in the `.husky` folder
