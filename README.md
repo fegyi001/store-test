@@ -304,9 +304,9 @@ Add a new file called `pre-commit` to the `.husky` folder with the following con
 . "$(dirname "$0")/_/husky.sh"
 
 # Run linters (ts and scss)
-npm run lint-staged
+yarn lint-staged
 # Run tests
-npm run test-headless
+yarn test-headless
 ```
 
 ### Run `preinstall` again
