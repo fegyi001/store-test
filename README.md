@@ -124,15 +124,16 @@ extends:
 plugins:
     - stylelint-scss
 rules:
-    max-nesting-depth: null
-    selector-max-compound-selectors: null
-    selector-class-pattern: null
-    scss/dollar-variable-pattern: null
-    no-empty-source: null
-    selector-pseudo-element-no-unknown: null
-    scss/no-global-function-names: null
-    order/properties-order: null
     function-parentheses-space-inside: null
+    max-empty-lines: 1
+    max-nesting-depth: null
+    no-empty-source: null
+    order/properties-order: null
+    scss/dollar-variable-pattern: null
+    scss/no-global-function-names: null
+    selector-class-pattern: null
+    selector-max-compound-selectors: null
+    selector-pseudo-element-no-unknown: null
 ```
 
 ### Create `.prettierrc.json` with the following content:
