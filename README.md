@@ -244,10 +244,10 @@ yarn stylelint "**/*.scss" --fix
 
 ## Add Git hooks (here: pre-commit)
 
-### Install husky
+### Install husky and lint-staged
 
 ```bash
-yarn add -D husky
+yarn add -D husky lint-staged
 ```
 
 ### Add and run new script
@@ -270,6 +270,31 @@ npm run prepare
 
 This installs Git hooks which are in the `.husky` folder
 
+### Add `lint-staged` to package.json
+
+These commands will only run for the modified ts & scss files
+
+```json
+"lint-staged": {
+  "src/**/*.ts": [
+    "eslint . --fix"
+  ],
+  "src/**/*.scss": [
+    "stylelint --fix"
+  ]
+}
+```
+
+### Create script for running headless tests
+
+Add to package.json scripts:
+
+```json
+{
+  "test-headless": "ng test --watch=false --browsers=ChromeHeadless"
+}
+```
+
 ### Add pre-commit hook
 
 Add a new file called `pre-commit` to the `.husky` folder with the following content:
@@ -279,10 +304,9 @@ Add a new file called `pre-commit` to the `.husky` folder with the following con
 . "$(dirname "$0")/_/husky.sh"
 
 # Run linters (ts and scss)
-npm run ng lint --fix
-npm run stylelint --fix "**/*.scss"
-# Add to commit since files were potentially changed
-git add .
+npm run lint-staged
+# Run tests
+npm run test-headless
 ```
 
 ### Run `preinstall` again

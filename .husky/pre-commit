@@ -3,5 +3,5 @@
 
 # Run linters (ts and scss)
 yarn lint-staged
-# run tests
-npm run test-headless
+# Run tests
+yarn test-headless
