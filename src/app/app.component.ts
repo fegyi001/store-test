@@ -44,7 +44,7 @@ export class AppComponent implements OnInit, OnDestroy {
         location.reload()
       })
       .catch((error) => {
-        console.error('Error logging out', error)
+        console.error('Error logging out: ', error)
       })
   }
 
