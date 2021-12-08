@@ -14,3 +14,4 @@ rules:
     scss/no-global-function-names: null
     order/properties-order: null
     function-parentheses-space-inside: null
+    max-empty-lines: 1
