@@ -10,11 +10,7 @@
     "test-headless": "ng test --watch=false --browsers=ChromeHeadless",
     "lint": "ng lint",
     "stylelint": "stylelint",
-    "prepare": "husky install",
-    "lint:scss": "stylelint \"src/**/*.scss\"",
-    "lint:scss:fix": "stylelint \"src/**/*.scss\" --fix",
-    "lint:ts": "eslint . --ext .ts",
-    "lint:ts:fix": "npm run lint:ts -- --fix"
+    "prepare": "husky install"
   },
   "private": true,
   "dependencies": {
