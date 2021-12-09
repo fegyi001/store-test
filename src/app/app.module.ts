@@ -38,7 +38,6 @@ import { StoreService } from './store/store.service'
     MatIconModule,
     MatButtonModule,
     EffectsModule.forRoot([AppEffects]),
-    StoreModule.forRoot(reducers, { metaReducers }),
     !environment.production ? StoreDevtoolsModule.instrument() : []
   ],
   providers: [
