@@ -1,13 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
-import { Store } from '@ngrx/store'
 import * as Keycloak from 'keycloak-js'
 import { filter, Observable, Subscription } from 'rxjs'
 
+import { AppService } from './app.service'
 import { User } from './models/user.interface'
-import { AppState } from './store/app.state'
-import { setUser } from './store/user/user.actions'
-import { selectUser } from './store/user/user.reducer'
 
 @Component({
   selector: 'app-root',
@@ -19,8 +16,8 @@ export class AppComponent implements OnInit, OnDestroy {
   userAuthenticatedSub: Subscription | null
   keycloak: Keycloak.KeycloakInstance
 
-  constructor(private store: Store<AppState>, private router: Router) {
-    this.user$ = this.store.select(selectUser)
+  constructor(private service: AppService, private router: Router) {
+    this.user$ = this.service.user$
     this.userAuthenticatedSub = this.user$
       .pipe(filter((user) => user !== null))
       .subscribe(() => {
@@ -63,6 +60,6 @@ export class AppComponent implements OnInit, OnDestroy {
       profile: userProfile,
       jwt: this.keycloak.token
     }
-    this.store.dispatch(setUser(user))
+    this.service.setUser(user)
   }
 }

@@ -3,8 +3,8 @@ import { CanActivate, Router } from '@angular/router'
 import { Observable } from 'rxjs'
 import { map, tap } from 'rxjs/operators'
 
-import { StoreService } from '../store/store.service'
-import { selectUser } from '../store/user/user.reducer'
+import { StoreService } from '../../../store/store.service'
+import { selectUser } from '../../../store/user/user.reducer'
 
 @Injectable({
   providedIn: 'root'

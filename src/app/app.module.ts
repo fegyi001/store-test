@@ -15,7 +15,7 @@ import { environment } from '../environments/environment'
 import { AppComponent } from './app.component'
 import { AppEffects } from './app.effects'
 import { AppRoutingModule } from './app-routing.module'
-import { LoggedinGuard } from './guards/loggedin.guard'
+import { LoggedinGuard } from './pages/home/guards/loggedin.guard'
 import { metaReducers, reducers } from './store/app.state'
 import { StoreService } from './store/store.service'
 
