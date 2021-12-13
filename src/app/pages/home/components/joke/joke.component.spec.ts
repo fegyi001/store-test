@@ -15,7 +15,11 @@ describe('JokeComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(JokeComponent)
     component = fixture.componentInstance
-    component.joke = { id: '12', joke: 'Hello', status: 1 }
+    component.joke = {
+      id: 'qrOfN7w5ojb',
+      joke: 'A cannibal is someone who is fed up with people.',
+      status: 200
+    }
     fixture.detectChanges()
   })
 

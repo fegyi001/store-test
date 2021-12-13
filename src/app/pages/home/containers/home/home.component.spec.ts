@@ -19,7 +19,8 @@ describe('HomeComponent', () => {
         StoreModule.forRoot(reducers),
         StoreModule.forFeature('home', homeReducers),
         MatListModule
-      ]
+      ],
+      providers: []
     }).compileComponents()
   })
 

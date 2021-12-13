@@ -16,7 +16,7 @@ export class HomeComponent {
     this.jokes$ = this.homeService.jokes$
   }
 
-  getNewJoke() {
+  getNewJoke(): void {
     this.homeService.fetchJoke$().subscribe((joke) => {
       this.homeService.addJoke(joke)
     })
