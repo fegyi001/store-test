@@ -4,9 +4,9 @@ import { MatButtonModule } from '@angular/material/button'
 import { MatListModule } from '@angular/material/list'
 import { StoreModule } from '@ngrx/store'
 
-import { HomeComponent } from './home.component'
+import { HomeComponent } from './components/home.component'
 import { HomeRoutingModule } from './home-routing.module'
-import { reducers } from './store'
+import { reducers } from './state/home.state'
 
 @NgModule({
   declarations: [HomeComponent],

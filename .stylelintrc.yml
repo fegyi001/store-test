@@ -4,6 +4,8 @@ extends:
     - stylelint-config-sass-guidelines
 plugins:
     - stylelint-scss
+ignoreFiles:
+    - "**/*.html"
 rules:
     function-parentheses-space-inside: null
     max-empty-lines: 1

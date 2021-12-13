@@ -5,7 +5,7 @@ import * as Keycloak from 'keycloak-js'
 import { filter, Observable, Subscription } from 'rxjs'
 
 import { User } from './models/user.interface'
-import { AppState } from './store'
+import { AppState } from './store/app.state'
 import { setUser } from './store/user/user.actions'
 import { selectUser } from './store/user/user.reducer'
 

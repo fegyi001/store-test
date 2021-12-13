@@ -1,7 +1,7 @@
 import { createReducer, createSelector, on } from '@ngrx/store'
 import { User } from 'src/app/models/user.interface'
 
-import { AppState } from '..'
+import { AppState } from '../app.state'
 import { resetUser, setUser } from './user.actions'
 
 export interface State {

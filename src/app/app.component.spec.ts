@@ -6,7 +6,7 @@ import { RouterTestingModule } from '@angular/router/testing'
 import { StoreModule } from '@ngrx/store'
 
 import { AppComponent } from './app.component'
-import { reducers } from './store'
+import { reducers } from './store/app.state'
 
 describe('AppComponent', () => {
   beforeEach(async () => {
