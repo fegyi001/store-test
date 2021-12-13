@@ -18,7 +18,7 @@ export class HomeService {
     return this.api.fetchJoke$()
   }
 
-  get jokes$(): Observable<Joke[]> {
+  getJokes$(): Observable<Joke[]> {
     return this.store.select(getJokes)
   }
 

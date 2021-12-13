@@ -13,7 +13,7 @@ export class HomeComponent {
   jokes$: Observable<Joke[]>
 
   constructor(private homeService: HomeService) {
-    this.jokes$ = this.homeService.jokes$
+    this.jokes$ = this.homeService.getJokes$()
   }
 
   getNewJoke(): void {
