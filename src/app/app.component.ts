@@ -17,7 +17,7 @@ export class AppComponent implements OnInit, OnDestroy {
   keycloak: Keycloak.KeycloakInstance
 
   constructor(private service: AppService, private router: Router) {
-    this.user$ = this.service.user$
+    this.user$ = this.service.getUser$()
     this.userAuthenticatedSub = this.user$
       .pipe(filter((user) => user !== null))
       .subscribe(() => {

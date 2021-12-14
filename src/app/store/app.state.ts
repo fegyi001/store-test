@@ -4,11 +4,11 @@ import { environment } from '../../environments/environment'
 import * as fromUser from './user/user.reducer'
 
 export interface AppState {
-  user: fromUser.State
+  userState: fromUser.State
 }
 
 export const reducers: ActionReducerMap<AppState> = {
-  user: fromUser.reducer
+  userState: fromUser.reducer
 }
 
 // console.log all actions

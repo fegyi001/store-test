@@ -16,7 +16,7 @@ import { reducers } from './state/home.state'
     HomeRoutingModule,
     MatListModule,
     MatButtonModule,
-    StoreModule.forFeature('home', reducers)
+    StoreModule.forFeature('homeState', reducers)
   ]
 })
 export class HomeModule {}

@@ -5,7 +5,6 @@ import { MatIconModule } from '@angular/material/icon'
 import { MatToolbarModule } from '@angular/material/toolbar'
 import { BrowserModule } from '@angular/platform-browser'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
-import { Router } from '@angular/router'
 import { EffectsModule } from '@ngrx/effects'
 import { StoreRouterConnectingModule } from '@ngrx/router-store'
 import { StoreModule } from '@ngrx/store'
@@ -15,9 +14,7 @@ import { environment } from '../environments/environment'
 import { AppComponent } from './app.component'
 import { AppEffects } from './app.effects'
 import { AppRoutingModule } from './app-routing.module'
-import { LoggedinGuard } from './pages/home/guards/loggedin.guard'
 import { metaReducers, reducers } from './store/app.state'
-import { StoreService } from './store/store.service'
 
 @NgModule({
   declarations: [AppComponent],
@@ -39,15 +36,6 @@ import { StoreService } from './store/store.service'
     MatButtonModule,
     EffectsModule.forRoot([AppEffects]),
     !environment.production ? StoreDevtoolsModule.instrument() : []
-  ],
-  providers: [
-    {
-      provide: 'loggedInOnlyGuard',
-      useFactory: (router: Router, storeService: StoreService) => {
-        return new LoggedinGuard(router, storeService)
-      },
-      deps: [Router, StoreService]
-    }
   ],
   bootstrap: [AppComponent]
 })

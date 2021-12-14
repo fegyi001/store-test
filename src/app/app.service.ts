@@ -13,7 +13,7 @@ import { selectUser } from './store/user/user.reducer'
 export class AppService {
   constructor(private store: Store<AppState>) {}
 
-  get user$(): Observable<User | null> {
+  getUser$(): Observable<User | null> {
     return this.store.select(selectUser)
   }
 

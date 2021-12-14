@@ -18,7 +18,7 @@ export const reducer = createReducer(
   on(resetUser, (state) => ({ ...state, user: null }))
 )
 
-export const selectUserState = (state: AppState) => state.user
+export const selectUserState = (state: AppState) => state.userState
 
 export const selectUser = createSelector(
   selectUserState,

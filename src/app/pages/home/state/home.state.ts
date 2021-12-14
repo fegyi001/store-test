@@ -14,7 +14,7 @@ export const reducers: ActionReducerMap<HomeState> = {
   jokes: fromJokes.reducer
 }
 
-export const getJokesState = createFeatureSelector<HomeState>('home')
+export const getJokesState = createFeatureSelector<HomeState>('homeState')
 
 export const getJokes = createSelector(
   getJokesState,
