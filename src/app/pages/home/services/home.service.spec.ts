@@ -3,11 +3,11 @@ import { TestBed } from '@angular/core/testing'
 import { StoreModule } from '@ngrx/store'
 import { of } from 'rxjs'
 
-import { reducers } from '../../store/app.state'
-import { HomeApiService } from './api/home.api.service'
+import { reducers } from '../../../store/app.state'
+import { Joke } from '../models/joke.interface'
+import { reducers as homeReducers } from '../state/home.state'
+import { HomeApiService } from './home.api.service'
 import { HomeService } from './home.service'
-import { Joke } from './models/joke.interface'
-import { reducers as homeReducers } from './state/home.state'
 
 describe('HomeService', () => {
   let service: HomeService

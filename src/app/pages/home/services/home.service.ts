@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core'
 import { Store } from '@ngrx/store'
 import { Observable } from 'rxjs'
 
-import { AppState } from '../../store/app.state'
-import { HomeApiService } from './api/home.api.service'
-import { Joke } from './models/joke.interface'
-import { getJokes } from './state/home.state'
-import { addJoke } from './state/jokes/jokes.actions'
+import { AppState } from '../../../store/app.state'
+import { Joke } from '../models/joke.interface'
+import { getJokes } from '../state/home.state'
+import { addJoke } from '../state/jokes/jokes.actions'
+import { HomeApiService } from './home.api.service'
 
 @Injectable({
   providedIn: 'root'

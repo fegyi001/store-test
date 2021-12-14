@@ -4,7 +4,7 @@ import { MatListModule } from '@angular/material/list'
 import { StoreModule } from '@ngrx/store'
 
 import { reducers } from '../../../../store/app.state'
-import { HomeService } from '../../home.service'
+import { HomeService } from '../../services/home.service'
 import { reducers as homeReducers } from '../../state/home.state'
 import { HomeComponent } from './home.component'
 

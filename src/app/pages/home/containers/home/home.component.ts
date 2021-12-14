@@ -1,8 +1,8 @@
 import { Component } from '@angular/core'
 import { Observable } from 'rxjs'
 
-import { HomeService } from '../../home.service'
 import { Joke } from '../../models/joke.interface'
+import { HomeService } from '../../services/home.service'
 
 @Component({
   selector: 'app-home',
