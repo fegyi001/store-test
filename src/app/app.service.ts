@@ -4,8 +4,7 @@ import { Observable } from 'rxjs'
 
 import { User } from './models/user.interface'
 import { AppState } from './store/app.state'
-import { setUser } from './store/user/user.actions'
-import { selectUser } from './store/user/user.reducer'
+import { setUser } from './store/auth/auth.actions'
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +13,7 @@ export class AppService {
   constructor(private store: Store<AppState>) {}
 
   getUser$(): Observable<User | null> {
-    return this.store.select(selectUser)
+    return this.store.select((state) => state.auth.user)
   }
 
   setUser(user: User) {

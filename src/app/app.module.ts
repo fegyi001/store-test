@@ -24,7 +24,13 @@ import { metaReducers, reducers } from './store/app.state'
     AppRoutingModule,
     HttpClientModule,
     StoreModule.forRoot(reducers, {
-      metaReducers
+      metaReducers,
+      runtimeChecks: {
+        strictStateSerializability: true,
+        strictActionSerializability: true,
+        strictActionWithinNgZone: true,
+        strictActionTypeUniqueness: true
+      }
     }),
     StoreDevtoolsModule.instrument({
       maxAge: 25,

@@ -1,25 +1,41 @@
-import { ActionReducer, ActionReducerMap, MetaReducer } from '@ngrx/store'
+import {
+  ActionReducer,
+  ActionReducerMap,
+  createSelector,
+  MetaReducer
+} from '@ngrx/store'
 
 import { environment } from '../../environments/environment'
-import * as fromUser from './user/user.reducer'
+import * as fromAuth from './auth/auth.reducer'
 
 export interface AppState {
-  userState: fromUser.State
+  auth: fromAuth.State
 }
 
 export const reducers: ActionReducerMap<AppState> = {
-  userState: fromUser.reducer
+  auth: fromAuth.reducer
 }
 
-// console.log all actions
-export function debug(reducer: ActionReducer<any>): ActionReducer<any> {
-  return function (state, action) {
-    console.log('%c state ', 'color: blue', state)
-    console.log('%c action ', 'color: magenta', action)
-    return reducer(state, action)
+export function logger(
+  reducer: ActionReducer<AppState>
+): ActionReducer<AppState> {
+  return (state, action) => {
+    const result = reducer(state, action)
+    console.groupCollapsed(action.type)
+    console.log('prev state', state)
+    console.log('action', action)
+    console.log('next state', result)
+    console.groupEnd()
+    return result
   }
 }
 
 export const metaReducers: MetaReducer<AppState>[] = !environment.production
-  ? [debug]
+  ? [logger]
   : []
+
+export const selectAuthState = (state: AppState) => state.auth
+
+export const selectUser = createSelector(selectAuthState, fromAuth.getUser)
+
+export const selectLoggedIn = createSelector(selectUser, (user) => !!user)
