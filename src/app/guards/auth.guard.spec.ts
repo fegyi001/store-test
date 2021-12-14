@@ -1,7 +1,5 @@
 import { TestBed } from '@angular/core/testing'
-import { RouterTestingModule } from '@angular/router/testing'
 import { MockStore, provideMockStore } from '@ngrx/store/testing'
-import { cold } from 'jasmine-marbles'
 import { combineLatest, first, of } from 'rxjs'
 
 import { AppState } from '../store/app.state'
@@ -14,7 +12,6 @@ describe('Auth Guard', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule],
       providers: [AuthGuard, provideMockStore({ initialState })]
     })
     store = TestBed.inject(MockStore)
@@ -42,7 +39,7 @@ describe('Auth Guard', () => {
       .subscribe(([expected, canActivate]) => {
         expect(expected).toEqual(canActivate)
       })
-    const expected = cold('(a|)', { a: true })
-    expect(guard.canActivate()).toBeObservable(expected)
+    // const expected = cold('(a|)', { a: true })
+    // expect(guard.canActivate()).toBeObservable(expected)
   })
 })

@@ -15,7 +15,7 @@ describe('AppComponent', () => {
   let fixture: ComponentFixture<AppComponent>
   // let appServiceSpy: jasmine.SpyObj<AppService>
   // let store: MockStore
-  const initialState: AppState = { userState: { user: null } }
+  const initialState: AppState = { auth: { user: null } }
 
   beforeEach(async () => {
     const spy = jasmine.createSpyObj('AppService', {
