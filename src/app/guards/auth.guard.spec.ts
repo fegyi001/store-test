@@ -1,45 +1,34 @@
 import { TestBed } from '@angular/core/testing'
+import { MemoizedSelector } from '@ngrx/store'
 import { MockStore, provideMockStore } from '@ngrx/store/testing'
-import { combineLatest, first, of } from 'rxjs'
+import { cold } from 'jasmine-marbles'
 
 import { AppState } from '../store/app.state'
+import * as fromApp from '../store/app.state'
 import { AuthGuard } from './auth.guard'
 
 describe('Auth Guard', () => {
   let guard: AuthGuard
   let store: MockStore<AppState>
-  const initialState: AppState = { auth: { user: null } }
+  let loggedIn: MemoizedSelector<fromApp.AppState, boolean>
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [AuthGuard, provideMockStore({ initialState })]
+      providers: [AuthGuard, provideMockStore()]
     })
     store = TestBed.inject(MockStore)
     guard = TestBed.inject(AuthGuard)
+    loggedIn = store.overrideSelector(fromApp.selectLoggedIn, false)
   })
 
   it('should return false if the auth state is not logged in', () => {
-    const expected$ = of(false)
-    combineLatest([expected$, guard.canActivate()])
-      .pipe(first())
-      .subscribe(([expected, canActivate]) => {
-        expect(expected).toEqual(canActivate)
-      })
+    const expected = cold('(a|)', { a: false })
+    expect(guard.canActivate()).toBeObservable(expected)
   })
 
   it('should return true if the auth state is logged in', () => {
-    store.setState({
-      auth: {
-        user: { jwt: 'aaa', profile: { email: 'test@test.com' } }
-      }
-    })
-    const expected$ = of(true)
-    combineLatest([expected$, guard.canActivate()])
-      .pipe(first())
-      .subscribe(([expected, canActivate]) => {
-        expect(expected).toEqual(canActivate)
-      })
-    // const expected = cold('(a|)', { a: true })
-    // expect(guard.canActivate()).toBeObservable(expected)
+    const expected = cold('(a|)', { a: true })
+    loggedIn.setResult(true)
+    expect(guard.canActivate()).toBeObservable(expected)
   })
 })
