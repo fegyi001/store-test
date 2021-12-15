@@ -1,7 +1,7 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row
     >Hello
-    {{ (user$ | async) === null ? "visitor" : (user$ | async)?.email }}
+    {{ (user$ | async) === null ? 'visitor' : (user$ | async)?.email }}
     <span class="spacer"></span>
     <button mat-icon-button *ngIf="(user$ | async) !== null" (click)="logout()">
       <mat-icon>logout</mat-icon>
