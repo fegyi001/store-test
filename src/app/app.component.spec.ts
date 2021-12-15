@@ -19,7 +19,8 @@ describe('AppComponent', () => {
 
   beforeEach(async () => {
     const spy = jasmine.createSpyObj('AppService', {
-      getUser$: of(null)
+      getUser$: of(null),
+      setUser: null
     })
     await TestBed.configureTestingModule({
       imports: [

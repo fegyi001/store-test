@@ -16,7 +16,7 @@ export class AppService {
     return this.store.select((state) => state.auth.user)
   }
 
-  setUser(user: User) {
+  setUser(user: User | null) {
     this.store.dispatch(setUser(user))
   }
 
