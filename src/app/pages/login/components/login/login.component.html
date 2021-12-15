@@ -1,1 +1,7 @@
-You will be redirected to Keycloak login page in a few seconds...
+<form [formGroup]="form">
+    <mat-form-field>
+        <mat-label>Email</mat-label>
+        <input type="email" matInput formControlName="email">
+    </mat-form-field>
+    <button mat-flat-button color="accent" (click)="onSubmit()" [disabled]="form.invalid">Login</button>
+</form>

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core'
+import { Component, OnDestroy } from '@angular/core'
 import { Router } from '@angular/router'
 import { filter, Observable, Subscription } from 'rxjs'
 
@@ -10,7 +10,7 @@ import { User } from './models/user.interface'
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit, OnDestroy {
+export class AppComponent implements OnDestroy {
   user$: Observable<User | null>
   userAuthenticatedSub: Subscription | null
 
@@ -23,22 +23,12 @@ export class AppComponent implements OnInit, OnDestroy {
       })
   }
 
-  ngOnInit() {
-    this._login()
-  }
-
   ngOnDestroy() {
     this.userAuthenticatedSub?.unsubscribe()
   }
 
   logout(): void {
     this.service.setUser(null)
-  }
-
-  private _login(): void {
-    const user: User = {
-      email: 'test@test.com'
-    }
-    this.service.setUser(user)
+    this.router.navigate([''])
   }
 }
